@@ -1,9 +1,6 @@
-from django.test.utils import setup_test_environment
-from django.test import Client
+from django.test import Client, TestCase
+
 from books.models import Book
-from django.test import TestCase
-
-
 
 client = Client()
 

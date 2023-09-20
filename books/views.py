@@ -57,6 +57,3 @@ def single_book_from_api_view(request: HttpRequest, book_id: int) -> JsonRespons
     if not book:
         return HttpResponseNotFound('Нет книги с таким номером')
     return JsonResponse(convert_book_from_query(book))
-
-
-    
