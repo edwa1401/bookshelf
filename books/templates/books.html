@@ -6,17 +6,29 @@
 </head>
 <body>
     <h1>Список книг:</h1>
-    <ul>
-        {% if books %}
+    {% if books %}
+    <table>
+        <thead>
+          <tr>
+            <th>Название</th>
+            <th>Имя автора</th>
+            <th>Тираж</th>
+            <th>Описание</th>
+          </tr>
+        </thead>
+        <tbody>
             {% for book in books %}
-                <li>{{ book.title }}</li>
-                <li>{{ book.author_full_name }}</li>
-                <li>{{ book.copies_printed }}</li>
-                <li>{{ book.short_description }}</li>
+            <tr>
+                <td>{{ book.title }}</td>
+                <td>{{ book.author_full_name }}</td>
+                <td>{{ book.copies_printed }}</td>
+                <td>{{ book.short_description }}</td>
+            </tr>
             {% endfor %}
-        {% else %}
-            <p> Нет книг</p>
-        {% endif %}
-    </ul>
+        </tbody>
+      </table>
+    {% else %}
+        <p> Нет книг</p>
+    {% endif %}
 </body>
 </html>
