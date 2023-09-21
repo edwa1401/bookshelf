@@ -19,14 +19,7 @@ def books_view(request: HttpRequest) -> HttpResponse | None:
 
 
 def get_book_by_id(book_id: int) -> QuerySet | None:
-    try:
-        book = Book.objects.get(id=book_id)
-    except ObjectDoesNotExist:
-        return None
-    
-    if not book:
-        return None
-    return book
+    return Book.objects.filter(id=book_id).first()
     
 
 def single_book_view(request: HttpRequest, book_id: int) -> HttpResponse | None:
@@ -34,7 +27,7 @@ def single_book_view(request: HttpRequest, book_id: int) -> HttpResponse | None:
     return render(request, 'book.html', context={'book': book})
 
 
-def convert_book_from_query(book: QuerySet) -> dict:
+def serialize_book(book: QuerySet) -> dict:
     return {
         'id': book.pk,
         'title': book.title,
@@ -48,7 +41,7 @@ def books_from_api_view(request: HttpRequest) -> list[JsonResponse] | None:
     books = get_books()
     if not books:
         return HttpResponseNotFound('Нет книг')
-    view_books =[convert_book_from_query(book) for book in books]
+    view_books =[serialize_book(book) for book in books]
     return JsonResponse(view_books, safe=False)
 
 
@@ -56,4 +49,4 @@ def single_book_from_api_view(request: HttpRequest, book_id: int) -> JsonRespons
     book = get_book_by_id(book_id)
     if not book:
         return HttpResponseNotFound('Нет книги с таким номером')
-    return JsonResponse(convert_book_from_query(book))
+    return JsonResponse(serialize_book(book))
