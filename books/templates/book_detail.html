@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Информация о книг {{ book.title }}е</title>
+</head>
+<body>
+    <ul>
+        <p> <b>Книга: {{ book.title }}</b> </p>
+            <li>Автор: {{ book.author_full_name }}</li>
+            <li>Количество копий: {{ book.copies_printed }}</li>
+            <li>Описание: {{ book.short_description }}</li>
+    </ul>
+</body>
+</html>
